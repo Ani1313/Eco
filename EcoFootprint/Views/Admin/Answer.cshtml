@@ -1,0 +1,42 @@
+﻿@model EcoFootprint.Models.Answer
+
+@{
+    ViewBag.Title = "Answer";
+}
+
+<h2>Answer</h2>
+
+<div>
+    <h4>Answer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TextAM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TextAM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TextEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TextEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NQID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NQID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

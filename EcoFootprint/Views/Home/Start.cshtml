@@ -1,0 +1,66 @@
+﻿
+@{
+	ViewBag.Title = "Start";
+}
+<header class="header">
+	<div class="header__text-box">
+		<h1 class="heading-primary">
+			<span class="heading-primary--main">էկոլոգիական</span>
+			<span class="heading-primary--sub">ոտնահետք</span>
+		</h1>
+		@Html.ActionLink("սկսել / start", "SelectLanguage", "Home", null, new { @class = "btn btn--white btn--animated" })
+	</div>
+</header>
+<section class="section-about">
+	<div class="u-center-text u-margin-bottom-big">
+		<h2 class="heading-secondary">
+			Բնական ոտնահետք / Ecological footprint
+		</h2>
+	</div>
+	<div class=" row ">
+		<div class=" col-1-of-2">
+			<h3 class="heading-tertiary u-margin-bottom-small">
+				Ի՞նչ է Բնական ոտնահետքը
+			</h3>
+			<p class="paragraph">
+				Բնական ոտնահետքը գործիք է, որի օգնությամբ տրվում է կոնկրետ բնապահպանական խնդիրների լուծում։ Այլ կերպ ասած,այն չափում է մարդու ազդեցությունը բնության վրա:
+			</p>
+			<h3 class="heading-tertiary u-margin-bottom-small">
+				What is ecological footprint?
+			</h3>
+			<p class="paragraph">
+				Ecological footprint is a method of gauging humans’ dependence on natural resources by calculating how much of the environment is needed to sustain a particular lifestyle. In other words, it measures the demand vs. the supply of nature.
+			</p>
+			<a href="https://en.wikipedia.org/wiki/Ecological_footprint" class="btn-text">Learn more &rarr;</a>
+		</div>
+		<div class=" col-1-of-2">
+			<div class="composition">
+				<div class="composition__shape">
+					<img src="../Content/Images/foot-1.png" alt="Photo 1" class="composition__photo" />
+					<img src="../Content/Images/foot-2.png" alt="Photo 2" class="composition__photo" />
+					<img src="../Content/Images/foot-3.png" alt="Photo 3" class="composition__photo" />
+					<img src="../Content/Images/foot-4.png" alt="Photo 4" class="composition__photo" />
+					<img src="../Content/Images/foot-5.png" alt="Photo 5" class="composition__photo" />
+					<img src="../Content/Images/foot-6.png" alt="Photo 6" class="composition__photo" />
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<footer class="footer">
+	<div class="row">
+		<div class="col-1-of-2">
+			<p class="footer__copyright">
+				&copy; @DateTime.Now.Year - CACTUS
+			</p>
+		</div>
+		<div class="col-1-of-2">
+			<div class="footer__navigation">
+				<ul class="footer__list">
+					<li class="footer__item"><a href="http://issdngo.com/" class="footer__link">ISSD</a></li>
+					<li class="footer__item"><a href="#" class="footer__link">Contact</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>

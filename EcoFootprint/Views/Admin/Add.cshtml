@@ -1,0 +1,126 @@
+﻿@model AdminViewModel
+@using EcoFootprint.Models
+
+@{
+	ViewBag.Title = "Add";
+	if (Model.NewQuestion.Type != QuestionType.None)
+	{
+		ViewBag.QuestionType = (int)Model.NewQuestion.Type;
+	}
+}
+<h1>Add  Question</h1>
+
+@using (Html.BeginForm("Add", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+	if (Model.Message != null)
+	{
+		<p class="danger text-danger">@Model.Message</p>
+	}
+	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+	@Html.HiddenFor(model => model.NewQuestion.Type)
+
+	<label>Question ID</label><br />
+	@Html.EditorFor(model => model.NewQuestion.ID);
+	<br />
+
+	<label>Question Type</label><br />
+	@Model.NewQuestion.Type.ToString();
+
+	if (Model.NewQuestion.Type == QuestionType.Օptional)
+	{
+		<br />
+		<label>Next Question ID</label><br />
+		@Html.EditorFor(model => model.NewQuestion.NQID)
+	}
+
+	<br />
+	<label>Question Category</label><br />
+	@Html.EnumDropDownListFor(model => model.NewQuestion.Category)
+
+	<br />
+	<label>Question Text (AM)</label><br />
+	@Html.TextAreaFor(model => model.NewQuestion.TextAM)
+
+	<br />
+	<label>Question Text (EN)</label><br />
+	@Html.TextAreaFor(model => model.NewQuestion.TextEN)
+
+	<br />
+	<label>Info Text (AM)</label><br />
+	@Html.TextAreaFor(model => model.NewQuestion.InfoTextAM)
+
+
+	<br />
+	<label>Info Text (EN)</label><br />
+	@Html.TextAreaFor(model => model.NewQuestion.InfoTextEN)
+
+	<br />
+	<input type="file" name="ImageFile" required><br />
+	if (Model.NewQuestion.Type == QuestionType.SlideBar)
+	{
+		<hr />
+		<br />
+		<label>Min Side Text (AM)</label><br />
+		@Html.EditorFor(model => model.NewQuestion.Slidebar.MinSideTextAM)
+		<br />
+		<label>Min Side Text (EN)</label><br />
+		@Html.EditorFor(model => model.NewQuestion.Slidebar.MinSideTextEN)
+		<br />
+		<label>Max Side Text (AM)</label><br />
+		@Html.EditorFor(model => model.NewQuestion.Slidebar.MaxSideTextAM)
+
+		<br />
+		<label>Max Side Text (EN)</label><br />
+		@Html.EditorFor(model => model.NewQuestion.Slidebar.MaxSideTextEN)
+		<div class="score">
+			<h4>Min Score</h4>
+			@Html.EditorFor(model => model.NewQuestion.Slidebar.MinScore)
+		</div>
+		<div class="score">
+			<h4>Max Score</h4>
+			@Html.EditorFor(model => model.NewQuestion.Slidebar.MaxScore)
+		</div>
+	}
+	else
+	{
+		for (int i = 0; i < Model.NewQuestion.Answers.Count; i++)
+		{
+			<div class="answer">
+
+				<hr />
+				<h3>Answer @(i + 1)</h3>
+
+				<br />
+				<label>Text (AM)</label><br />
+				@Html.TextAreaFor(model => model.NewQuestion.Answers[i].TextAM)
+
+				<br />
+				<label>Text (EN):</label><br />
+				@Html.TextAreaFor(model => model.NewQuestion.Answers[i].TextEN)
+
+				@if (Model.NewQuestion.Type == QuestionType.Branching)
+				{
+					<br />
+					<label>Next Question ID</label><br />
+					@Html.EditorFor(model => model.NewQuestion.Answers[i].NQID)
+				}
+				<br />
+				<div class="score">
+					<h4>SCORE</h4>
+					@Html.EditorFor(model => model.NewQuestion.Answers[i].Score)
+				</div>
+			</div>
+		}
+	}
+	<br />
+	<input type="submit" value="Submit" class="btn btn-default" />
+}
+
+
+
+@section scripts
+{
+	<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+	<script src="~/bundles/jqueryval"></script>
+
+}

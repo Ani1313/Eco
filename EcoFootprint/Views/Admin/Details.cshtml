@@ -1,0 +1,135 @@
+﻿@model EcoFootprint.Models.Question
+
+@{
+	ViewBag.Title = "Question";
+}
+
+<div>
+	<h4>Question</h4>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.TextAM)
+		</dt>
+		<dd>
+			@Html.DisplayTextFor(model => model.TextAM)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.TextEN)
+		</dt>
+		<dd>
+			@Html.DisplayTextFor(model => model.TextEN)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.BackgroundImage)
+		</dt>
+		<dd>
+			<img src="@Url.Content(Model.BackgroundImage)" width="100" />
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.InfoTextAM)
+		</dt>
+		<dd>
+			@Html.DisplayTextFor(model => model.InfoTextAM)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.InfoTextEN)
+		</dt>
+		<dd>
+			@Html.DisplayTextFor(model => model.InfoTextEN)
+		</dd>
+		<dt>
+			Next Question ID
+		</dt>
+		<dd>
+			@if (Model.NextQuestion != null)
+			{
+				@Html.DisplayFor(model => model.NextQuestion.ID)
+			}
+			else if (Model.NQID != null)
+			{
+				@Html.DisplayFor(model => model.NQID)
+			}
+			else
+			{
+				@:null
+			}
+		</dd>
+	</dl>
+	@if (Model.Type == EcoFootprint.Models.QuestionType.SlideBar)
+	{
+		<hr />
+		<br />
+		<label>Min Side Text (AM)</label><br />
+		@Html.DisplayFor(model => model.Slidebar.MinSideTextAM)
+		<br />
+		<label>Min Side Text (EN)</label><br />
+		@Html.DisplayFor(model => model.Slidebar.MinSideTextEN)
+		<br />
+		<label>Max Side Text (AM)</label><br />
+		@Html.DisplayFor(model => model.Slidebar.MaxSideTextAM)
+		<br />
+		<label>Max Side Text (EN)</label><br />
+		@Html.DisplayFor(model => model.Slidebar.MaxSideTextEN)
+		<div class="score">
+			<h4>Min Score</h4>
+			@Html.DisplayFor(model => model.Slidebar.MinScore)
+		</div>
+		<div class="score">
+			<h4>Max Score</h4>
+			@Html.DisplayFor(model => model.Slidebar.MaxScore)
+		</div>
+	}
+	else
+	{
+		for (int i = 0; i < Model.Answers.Count; i++)
+		{
+			<hr />
+			<h3>Answer @(i + 1)</h3>
+			<dl class="dl-horizontal">
+				<dt>
+					@Html.DisplayNameFor(model => model.Answers[i].TextAM)
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Answers[i].TextAM)
+				</dd>
+				<dt>
+					@Html.DisplayNameFor(model => model.Answers[i].TextEN)
+				</dt>
+				<dd>
+					@Html.DisplayFor(model => model.Answers[i].TextEN)
+				</dd>
+				@if (Model.Type == EcoFootprint.Models.QuestionType.Branching)
+				{
+					<dt>
+						Next Question ID
+					</dt>
+					<dd>
+						@if (Model.Answers[i].NextQuestion != null)
+						{
+							@Html.DisplayFor(model => model.NextQuestion.ID)
+						}
+						else if (Model.Answers[i].NQID != null)
+						{
+							@Html.DisplayFor(model => model.NQID)
+						}
+						else
+						{
+							@:null
+						}
+					</dd>
+				}
+			</dl>
+			<br />
+			<div class="score">
+				<h4>SCORE</h4>
+				@Html.DisplayFor(model => model.Answers[i].Score)
+			</div>
+		}
+	}
+	<br />
+</div>
+<p>
+	@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+	@Html.ActionLink("Back to List", "Index")
+</p>

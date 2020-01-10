@@ -1,0 +1,19 @@
+.bg-image {
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	z-index: -1;
+	overflow: hidden;
+	//padding:0;
+	//margin:0;
+
+
+	&__content {
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
+	}
+}
+

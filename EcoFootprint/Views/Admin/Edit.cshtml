@@ -1,0 +1,120 @@
+﻿@model EcoFootprint.Models.Question
+@using EcoFootprint.Models;
+@{
+	ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+	<div class="form-horizontal">
+		<h4>Question</h4>
+		<hr />
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		@Html.HiddenFor(model => model.Type)
+		@Html.HiddenFor(model => model.ID)
+		@Html.HiddenFor(model => model.BackgroundImage)
+		<label>Question ID</label><br />
+		@Model.ID.ToString()
+		<br />
+		<label>Question Type</label><br />
+		@Model.Type.ToString()
+		@if (Model.Type != QuestionType.Branching)
+		{
+			<br />
+			<label>Next Question ID</label><br />
+			if (Model.NextQuestion != null)
+			{
+				Model.NQID = Model.NextQuestion.ID;
+			}
+			@Html.EditorFor(model => model.NQID)
+		}
+		<br />
+		<label>Question Category</label><br />
+		@Html.EnumDropDownListFor(model => model.Category)
+		<br />
+		<label>Question Text (AM)</label><br />
+		@Html.TextAreaFor(model => model.TextAM)
+		<br />
+		<label>Question Text (EN)</label><br />
+		@Html.TextAreaFor(model => model.TextEN)
+		<br />
+		<label>Info Text (AM)</label><br />
+		@Html.TextAreaFor(model => model.InfoTextAM)
+		<br />
+		<label>Info Text (EN)</label><br />
+		@Html.TextAreaFor(model => model.InfoTextEN)
+		<br />
+		<input type="file" name="ImageFile"><br />
+		@if (Model.Type == QuestionType.SlideBar)
+		{
+			<hr />
+			<br />
+			<label>Min Side Text (AM)</label><br />
+			@Html.EditorFor(model => model.Slidebar.MinSideTextAM)
+			<br />
+			<label>Min Side Text (EN)</label><br />
+			@Html.EditorFor(model => model.Slidebar.MinSideTextEN)
+			<br />
+			<label>Max Side Text (AM)</label><br />
+			@Html.EditorFor(model => model.Slidebar.MaxSideTextAM)
+			<br />
+			<label>Max Side Text (EN)</label><br />
+			@Html.EditorFor(model => model.Slidebar.MaxSideTextEN)
+			<div class="score">
+				<h4>Min Score</h4>
+				@Html.EditorFor(model => model.Slidebar.MinScore)
+			</div>
+			<div class="score">
+				<h4>Max Score</h4>
+				@Html.EditorFor(model => model.Slidebar.MaxScore)
+			</div>
+		}
+		else
+		{
+			for (int i = 0; i < Model.Answers.Count; i++)
+			{
+				<div class="answer">
+					<hr />
+					<h3>Answer @(i + 1)</h3>
+					@if (Model.Answers.Count > 2)
+					{
+						<p>@Html.ActionLink("Delete", "DeleteAnswer", new { answerIndex = i, questionId = Model.ID }) </p>
+					}
+					@Html.HiddenFor(model => model.Answers[i].ID)
+					<br />
+					<label>Text (AM)</label><br />
+					@Html.TextAreaFor(model => model.Answers[i].TextAM)
+					<br />
+					<label>Text (EN):</label><br />
+					@Html.TextAreaFor(model => model.Answers[i].TextEN)
+					@if (Model.Type == QuestionType.Branching)
+					{
+						<br />
+						<label>Next Question ID</label><br />
+						if (Model.Answers[i].NextQuestion != null)
+						{
+							Model.Answers[i].NQID = Model.Answers[i].NextQuestion.ID;
+						}
+						@Html.EditorFor(model => model.Answers[i].NQID)
+					}
+					<br />
+					<div class="score">
+						<h4>SCORE</h4>
+						@Html.EditorFor(model => model.Answers[i].Score)
+					</div>
+				</div>
+			}
+			@Html.ActionLink("Add an answer", "AddAnswer", new { questionId = Model.ID })
+		}
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Save" class="btn btn-default" />
+			</div>
+		</div>
+	</div>
+}
+<div>
+	@Html.ActionLink("Back to List", "Index")
+</div>

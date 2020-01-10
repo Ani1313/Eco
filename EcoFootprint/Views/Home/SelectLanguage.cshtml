@@ -1,0 +1,44 @@
+﻿
+@{
+	ViewBag.Title = "SelectLanguage";
+}
+
+<section class="section-stories">
+	<div class="bg-video">
+		<video class="bg-video__content" autoplay muted loop>
+			<source src="../Content/Images/video.mp4" type="video/mp4">
+			<source src="../Content/Images/video.webm" type="video/webm">
+			Your browser is not supported
+		</video>
+	</div>
+	<div class="u-center-text u-margin-bottom-big">
+		<h2 class="heading-without-scale">
+			Ընտրեք լեզուն / Select Language
+		</h2>
+	</div>
+</section>
+
+<section class="section-features">
+	<div class="row">
+		<a style="text-decoration:none;color: #777777;" href="/Home/SetLanguage?isAM=True">
+			<div class="col-1-of-2">
+				<div class="feature-box">
+					<img src="../Content/Images/am-flag.png" alt="Photo 1" class="feature-box__icon" />
+					<p class="feature-box__test">
+						Հարցերին հայերեն պատասախնելու համար
+					</p>
+				</div>
+			</div>
+		</a>
+		<a style="text-decoration:none;color: #777777;" href="/Home/SetLanguage?isAM=False">
+			<div class="col-1-of-2">
+				<div class="feature-box">
+					<img src="../Content/Images/us-flag.png" alt="Photo 1" class="feature-box__icon" />
+					<p class="feature-box__test">
+						For english
+					</p>
+				</div>
+			</div>
+		</a>
+	</div>
+</section>

@@ -1,0 +1,149 @@
+﻿@model IEnumerable<EcoFootprint.Models.Question>
+@using EcoFootprint.Models;
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List Of Questions</h2>
+
+<p>
+    @Html.ActionLink("Create New Optional Question", "Count", new { qt = QuestionType.Օptional }) |
+    @Html.ActionLink("Create New Branching Question", "Count", new { qt = QuestionType.Branching }) |
+    @Html.ActionLink("Create New Slidebar Question", "Add", new { questionType = QuestionType.SlideBar })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TextAM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TextEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BackgroundImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InfoTextAM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InfoTextEN)
+        </th>
+        <th>
+            Next Question ID
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @if (item.TextAM.Length > 10)
+                {
+                    @item.TextAM.Substring(0, 10)@:...
+                }
+                else
+                {
+                    @item.TextAM
+                }
+            </td>
+            <td>
+                @if (item.TextEN.Length > 10)
+                {
+                    @item.TextEN.Substring(0, 10)@:...
+                }
+                else
+                {
+                    @item.TextEN
+                }
+            </td>
+            <td>
+                @if (item.BackgroundImage == null)
+                {
+                    @:null
+                }
+                else
+                {
+                    <img src="@Url.Content(item.BackgroundImage)" width="50" />
+                }
+            </td>
+            <td>
+                @if (item.InfoTextAM.Length > 10)
+                {
+                    @item.InfoTextAM.Substring(0, 10)@:...
+                }
+                else
+                {
+                    @item.InfoTextAM
+                }
+            </td>
+            <td>
+                @if (item.InfoTextEN.Length > 10)
+                {
+                    @item.InfoTextEN.Substring(0, 10)@:...
+                }
+                else
+                {
+                    @item.InfoTextEN
+                }
+            </td>
+            <td>
+
+                @if (item.NextQuestion != null)
+                {
+                    @Html.DisplayFor(model => item.NextQuestion.ID)
+                }
+                else if (item.NQID != null)
+                {
+                    @Html.DisplayFor(model => item.NQID)
+                }
+                else if (item.Type == EcoFootprint.Models.QuestionType.Branching)
+                {
+                    foreach (Answer answer in item.Answers)
+                    {
+                        if (answer.NQID != null)
+                        {
+                            @answer.NQID;@:,
+                        }
+                        else if (answer.NextQuestion != null)
+                        {
+                            @answer.NextQuestion.ID;@:,
+                        }
+                        else
+                        {
+                            @:null,
+                        }
+                    }
+                }
+                else
+                {
+                    @:null
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+</table>
+@Html.ActionLink("Delete All", "DeleteAll") | @Html.ActionLink("Refresh the database", "RefreshDb")

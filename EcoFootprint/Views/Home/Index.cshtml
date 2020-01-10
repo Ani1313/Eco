@@ -1,0 +1,112 @@
+﻿@using EcoFootprint.Models
+@model Question
+@{
+	ViewBag.Title = "Index";
+}
+
+@if (Model != null)
+{
+	
+	<section class="grid-test">
+		<div class=" row ">
+			<div class=" col-1-of-2">
+				
+					@if (ViewBag.IsAM)
+					{
+						<h1 class="questions">@Model.TextAM</h1>
+					}
+					else
+					{
+						<h1 class="questions">@Model.TextEN</h1>
+					}
+					@if (Model.Type == EcoFootprint.Models.QuestionType.SlideBar)
+					{
+						<div class="range-slider">
+							<span id="rs-bullet" class="rs-label">0</span>
+							<input id="rs-range-line" class="rs-range" type="range" value="0" min="0" max="100">
+						</div>
+						if (ViewBag.IsAM)
+						{
+							<a id="Next" class="btn-next u-center-text" href="/Home/NewQuestion?questionId=@Model.ID&answerIndex=0&slidebarValue=0">հաջորդը</a>
+						}
+						else
+						{
+							<a id="Next" class="btn-next u-center-text" href="/Home/NewQuestion?questionId=@Model.ID&answerIndex=0&slidebarValue=0">next</a>
+						}
+					}
+					else
+					{
+						for (int i = 0; i < Model.Answers.Count; i++)
+						{
+
+							if (Model.Answers[i] != null)
+							{
+								<div>
+									@if (ViewBag.IsAM)
+									{
+										@Html.ActionLink(Model.Answers[i].TextAM, "NewQuestion", new { questionId = Model.ID, answerIndex = i }, new { @class = "btn-text " })
+									}
+									else
+									{
+										@Html.ActionLink(Model.Answers[i].TextEN, "NewQuestion", new { questionId = Model.ID, answerIndex = i }, new { @class = "btn-text " })
+									}
+								</div>
+							}
+						}
+					}
+				
+			</div>
+		</div>
+	</section>
+	<div class="navigation">
+		<input type="checkbox" class="navigation__checkbox" id="navi-toggle">
+		<label for="navi-toggle" class="navigation__button">
+			<i class="navigation__icon icon-arrows-question "></i>
+		</label>
+		<div class="navigation__background">&nbsp;</div>
+		<nav class="navigation__nav ">
+			<div class="navigation__list">
+				@if (ViewBag.IsAM)
+				{
+					<div class="navigation__item">
+						<p class="navigation__item__text">
+							@Model.InfoTextAM
+						</p>
+					</div>
+				}
+				else
+				{
+					<div class="navigation__item">
+						<p class="navigation__item__text">
+							@Model.InfoTextEN
+						</p>
+					</div>
+
+				}
+			</div>
+		</nav>
+	</div>
+}
+else
+{
+	@:there is no questions
+}
+<script type="text/javascript">
+	function SlidebarChanged(id) {
+		var val = document.getElementById("slidebar").value;
+		document.getElementById("Next").href = "/Home/NewQuestion?questionId=" + id + "&answerIndex=0&slidebarValue=" + val;
+
+	}
+
+	var rangeSlider = document.getElementById("rs-range-line");
+	var rangeBullet = document.getElementById("rs-bullet");
+
+	rangeSlider.addEventListener("input", showSliderValue, false);
+
+	function showSliderValue() {
+		rangeBullet.innerHTML = rangeSlider.value;
+		var bulletPosition = (rangeSlider.value / rangeSlider.max);
+		rangeBullet.style.left = (bulletPosition * 378) + "px";
+	}
+
+</script>

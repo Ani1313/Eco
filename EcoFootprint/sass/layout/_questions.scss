@@ -1,0 +1,18 @@
+.col-1-of-2__left {
+	//height: 90vh;
+	background-size: cover;
+	//background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark);
+	position: relative;
+
+
+	&-img {
+		position: absolute;
+		//box-shadow: 0 1.5rem 4rem rgba($color-black, .4);
+		//opacity: .4;
+	}
+}
+.col-1-of-2__right{
+	text-align:left;
+	margin-right:0;
+	padding-right:0;
+}

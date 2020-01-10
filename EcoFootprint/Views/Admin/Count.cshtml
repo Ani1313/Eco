@@ -1,0 +1,14 @@
+﻿@model EcoFootprint.Models.CountViewModel
+@{
+    ViewBag.Title = "Count";
+}
+
+@using (Html.BeginForm())
+{
+    <label>How many answers will have the question???</label><br />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(x => x.questionType);
+    @Html.EditorFor(x => x.AnswerCount);
+    <br />
+    <input type="submit" name="submit" value="Submit" class="btn btn-default" />
+}

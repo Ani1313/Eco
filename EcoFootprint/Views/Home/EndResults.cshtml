@@ -1,0 +1,213 @@
+﻿@model EcoFootprint.Models.FinalResults
+@{
+	ViewBag.Title = "EndResutlts";
+}
+<section class="section-stories">
+	<div class="bg-video">
+		<video class="bg-video__content" autoplay muted loop>
+
+			<source src="../Content/Images/video.mp4" type="video/mp4">
+			<source src="../Content/Images/video.webm" type="video/webm">
+			Your browser is not supported
+		</video>
+	</div>
+	<div class="u-center-text u-margin-bottom-big">
+		<h2 class="heading-without-scale">
+			Արդյունքներ / Results
+		</h2>
+	</div>
+
+	<section class="section-planet">
+		<div class="row">
+			
+			<div class="col-1-of-1">
+				<div class="planet-box">
+					<h2 class="planet-heading u-margin-bottom-small">
+						եթե բոլերը ձեր նման ապրեին ապա մարդկությանը պետք կգար @Model.EarthsNeed.ToString("F1") հատ երկրագունդ։
+					</h2>
+
+					<h2 class="planet-heading">
+						if everyone lives like you, you will soon need  @Model.EarthsNeed.ToString("F1") planets․
+					</h2>
+				</div>
+			</div>
+		</div>
+
+	</section>
+</section>
+
+<section class="section-charts">
+	<div class="row">
+		<div class="col-1-of-2">
+			<div class="chart-box">
+				<div id="pieChartContainer" class="table-bordered chart-box__chart "></div>
+			</div>
+		</div>
+
+		<div class="col-1-of-2">
+			<div class="chart-box">
+				<div id="columnChartContainer" class="table-bordered chart-box__chart"></div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<script type="text/javascript">
+    window.onload = function () {
+            var chart1 = new CanvasJS.Chart("pieChartContainer", {
+                title: {
+                  text: "By Land Types"
+                },
+                animationEnabled: true,
+                legend: {
+                    verticalAlign: "center",
+                    horizontalAlign: "left",
+                    fontSize: 20,
+                    fontFamily: "Helvetica"
+                },
+                theme: "light2",
+                data: [
+                {
+					type: "pie",
+					indexLabelFontFamily: "Garamond",
+                    indexLabelFontSize: 10,
+                    indexLabel: "{label} {y}%",
+                    startAngle: -20,
+                    showInLegend: false,
+                    toolTipContent: "{legendText} {y}%",
+                    dataPoints: [
+						{y: Math.round( @Model.TotalScore.CropLand* 100 / @Model.TotalScore.Total), legendText: "Cropland",label: "Cropland"},
+						{y: Math.round( @Model.TotalScore.BuiltUpLand* 100 / @Model.TotalScore.Total), legendText: "Built-Up Land",label: "Built-Up Land"},
+						{y: Math.round( @Model.TotalScore.CarbonFootprint* 100 / @Model.TotalScore.Total), legendText: "Carbon Footprint",label: "Carbon Footprint"},
+						{y: Math.round( @Model.TotalScore.FishingGrounds* 100 / @Model.TotalScore.Total), legendText: "Fishing Grounds", label: "Fishing Grounds"},
+						{y: Math.round( @Model.TotalScore.GrazingLand* 100 / @Model.TotalScore.Total), legendText: "Grazing Land", label: "Grazing Land"},
+						{y: Math.round( @Model.TotalScore.Forest* 100 / @Model.TotalScore.Total), legendText: "Forest", label: "Forest"},
+                    ]
+                }
+                ]
+            });
+
+            var chart2 = new CanvasJS.Chart("columnChartContainer", {
+            theme: "light2",
+            animationEnabled: true,
+            title: {
+                text: "By Consumption Category"
+            },
+            data: [
+                {
+                    type: "column",
+					color: "rgba(25,212,32,.3)",
+					LabelFontSize: 10,
+                    dataPoints: [
+                        { y: @Model.TotalFood, label: "Food" },
+                        { y: @Model.TotalHousing, label: "Housing" },
+                        { y: @Model.TotalMobility, label: "Mobility" },
+                        { y: @Model.TotalGoods, label: "Goods" },
+                        { y: @Model.TotalSeruices, label: "Seruices" }
+                    ]
+                }
+            ]
+            });
+        chart1.render();
+        chart2.render();
+
+    };
+</script>
+
+<section class="section-cards" id="section-cards">
+	<div class=" row  ">
+		<div class=" col-1-of-3">
+			<div class=" card ">
+				<div class="card__side card__side--front">
+					<div class="card__picture card__picture--1">
+						&nbsp;
+					</div>
+					<h4 class="card__heading">
+						<span class="card__heading-span card__heading-span--1">
+							Լուծում առաջին
+						</span>
+					</h4>
+				</div>
+				<div class="card__side card__side--back card__side--back-1">
+					<div class="card__cta">
+						<div class="card__price-box">
+							<p class="card__picture-only u-margin-top-big">
+								Lorem Ipsum-ը տպագրության և տպագրական արդյունաբերության համար նախատեսված մոդելային տեքստ է: Սկսած 1500-ականներից` Lorem Ipsum-ը հանդիսացել է տպագրական արդյունաբերության ստանդարտ մոդելային տեքստ, ինչը մի անհայտ տպագրիչի կողմից տարբեր տառատեսակների օրինակների գիրք ստեղծելու ջանքերի արդյունք է:
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class=" col-1-of-3">
+			<div class=" card ">
+				<div class="card__side card__side--front">
+					<div class="card__picture card__picture--2">
+						&nbsp;
+					</div>
+					<h4 class="card__heading">
+
+						<span class="card__heading-span card__heading-span--2">
+							Լուծում երկրորդ
+						</span>
+
+					</h4>
+				</div>
+				<div class="card__side card__side--back card__side--back-2">
+					<div class="card__cta">
+						<div class="card__price-box">
+							<p class="card__picture-only u-margin-top-big">
+								Lorem Ipsum-ը տպագրության և տպագրական արդյունաբերության համար նախատեսված մոդելային տեքստ է: Սկսած 1500-ականներից` Lorem Ipsum-ը հանդիսացել է տպագրական արդյունաբերության ստանդարտ մոդելային տեքստ, ինչը մի անհայտ տպագրիչի կողմից տարբեր տառատեսակների օրինակների գիրք ստեղծելու ջանքերի արդյունք է:
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class=" col-1-of-3">
+			<div class=" card ">
+				<div class="card__side card__side--front">
+					<div class="card__picture card__picture--3">
+						&nbsp;
+					</div>
+					<h4 class="card__heading">
+						<span class="card__heading-span card__heading-span--3">
+							Լուծում երրորդ
+						</span>
+					</h4>
+				</div>
+				<div class="card__side card__side--back card__side--back-3">
+					<div class="card__cta">
+						<div class="card__price-box">
+							<p class="card__picture-only u-margin-top-big">
+								Lorem Ipsum-ը տպագրության և տպագրական արդյունաբերության համար նախատեսված մոդելային տեքստ է: Սկսած 1500-ականներից` Lorem Ipsum-ը հանդիսացել է տպագրական արդյունաբերության ստանդարտ մոդելային տեքստ, ինչը մի անհայտ տպագրիչի կողմից տարբեր տառատեսակների օրինակների գիրք ստեղծելու ջանքերի արդյունք է:
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="u-center-text .u-margin-top-huge">
+		@Html.ActionLink("Նորից սկսել", "SelectLanguage", "Home", null, new { @class = "btn btn--blue" })
+	</div>
+</section>
+<
+<footer class="footer">
+	<div class="row">
+		<div class="col-1-of-2">
+			<p class="footer__copyright">
+				&copy;Made by @DateTime.Now.Year - CACTUS
+			</p>
+		</div>
+		<div class="col-1-of-2">
+			<div class="footer__navigation">
+				<ul class="footer__list">
+					<li class="footer__item"><a href="http://issdngo.com/" class="footer__link">ISSD</a></li>
+					<li class="footer__item"><a href="#" class="footer__link">Contact</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
